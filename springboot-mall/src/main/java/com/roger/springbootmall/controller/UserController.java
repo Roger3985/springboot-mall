@@ -1,5 +1,6 @@
 package com.roger.springbootmall.controller;
 
+import com.roger.springbootmall.dto.UserLoginRequest;
 import com.roger.springbootmall.dto.UserRegisterRequest;
 import com.roger.springbootmall.model.User;
 import com.roger.springbootmall.service.UserService;
@@ -11,6 +12,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.swing.text.html.parser.Entity;
 
 @RestController
 public class UserController {
@@ -25,5 +28,12 @@ public class UserController {
         User user = userService.getUserById(userId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    }
+
+    @PostMapping("/users/login")
+    public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest userLoginRequest) {
+        User user = userService.login(userLoginRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 }
