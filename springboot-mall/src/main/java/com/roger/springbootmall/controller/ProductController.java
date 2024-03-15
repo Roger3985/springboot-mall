@@ -6,13 +6,17 @@ import com.roger.springbootmall.dto.ProductRequest;
 import com.roger.springbootmall.model.Product;
 import com.roger.springbootmall.service.ProductService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 public class ProductController {
 
@@ -27,13 +31,19 @@ public class ProductController {
 
             // 排序 Sorting
             @RequestParam (defaultValue = "created_date") String orderBy, // 根據什麼欄位進行排序
-            @RequestParam (defaultValue = "desc") String sort // 表示是升序或降序
+            @RequestParam (defaultValue = "desc") String sort, // 表示是升序或降序
+
+            // 分頁 Pagination
+            @RequestParam (defaultValue = "5") @Max(1000) @Min(0) Integer limit, // 對應到sql語句的limit語法
+            @RequestParam (defaultValue = "0") @Min(0) Integer offset // 對應到sql語句的offset語法
             ) {
         ProductQueryParams productQueryParams = new ProductQueryParams();
         productQueryParams.setCategory(category);
         productQueryParams.setSearch(search);
         productQueryParams.setOrderBy(orderBy);
         productQueryParams.setSort(sort);
+        productQueryParams.setLimit(limit);
+        productQueryParams.setOffset(offset);
 
         List<Product> productList = productService.getProducts(productQueryParams);
 
