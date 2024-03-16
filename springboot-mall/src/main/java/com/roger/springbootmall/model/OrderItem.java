@@ -2,18 +2,21 @@ package com.roger.springbootmall.model;
 
 public class OrderItem {
 
-    private Integer getOrderItemId;
+    private Integer OrderItemId;
     private Integer orderId;
     private Integer productId;
     private Integer quantity;
     private Integer amount;
 
-    public Integer getGetOrderItemId() {
-        return getOrderItemId;
+    private String productName;
+    private String imageUrl;
+
+    public Integer getOrderItemId() {
+        return OrderItemId;
     }
 
-    public void setGetOrderItemId(Integer getOrderItemId) {
-        this.getOrderItemId = getOrderItemId;
+    public void setOrderItemId(Integer orderItemId) {
+        OrderItemId = orderItemId;
     }
 
     public Integer getOrderId() {
@@ -46,5 +49,21 @@ public class OrderItem {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
